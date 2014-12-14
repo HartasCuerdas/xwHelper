@@ -8,6 +8,7 @@
     var puzzEl = this;
     var currOri = 'across';
     var currCol = 0;
+    var next = 39;
 
     var puzInit = {
 
@@ -20,10 +21,12 @@
               case 39: // right
               case 37: // left
                 currOri = 'across';
+                next = 39;
                 break;
               case 38: // up
               case 40: // down
                 currOri = 'down';
+                next = 40;
                 break;
               default:
                 break;
@@ -32,7 +35,7 @@
             if ( e.keyCode === 9) { // tab
               return false;
             } else if (
-              e.keyCode === 32 ) {
+              e.keyCode === 32 ) { // spacebar
 
               var el = $(e.target);
               el.val('');
@@ -62,9 +65,11 @@
               return false;
             } else {
               
-              //console.log('input keyup: ');
+              console.log('input keyup: ');
               // solvedToggle is boolean
-              
+
+              nav.nextPrevNav(e, next);
+
               //puzInit.checkAnswer(e);
               // checks current input
               // autoselect next square
