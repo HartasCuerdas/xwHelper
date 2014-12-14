@@ -9,6 +9,25 @@
     var currOri = 'across';
     var currCol = 0;
     var next = 39;
+    var gotMatrix = true;
+    var matrix =
+[
+ [ 1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  1,  1,  1,  1],
+ [ 1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1],
+ [ 1,  1,  1,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+ [ 1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1],
+ [ 1,  1,  1,  1,  1,  0,  1,  1,  1,  1,  1,  1,  1,  1,  0],
+ [ 1,  0,  1,  0,  1,  0,  0,  0,  1,  0,  1,  0,  1,  0,  0],
+ [ 1,  1,  1,  1,  1,  1,  1,  0,  1,  0,  0,  1,  1,  1,  1],
+ [ 1,  0,  0,  0,  1,  0,  1,  0,  1,  0,  1,  0,  0,  0,  1],
+ [ 1,  1,  1,  1,  0,  0,  1,  0,  1,  1,  1,  1,  1,  1,  1],
+ [ 0,  0,  1,  0,  1,  0,  1,  0,  0,  0,  1,  0,  1,  0,  1],
+ [ 0,  1,  1,  1,  1,  1,  1,  1,  1,  0,  1,  1,  1,  1,  1],
+ [ 1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1],
+ [ 1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  1,  1,  1],
+ [ 1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1],
+ [ 1,  1,  1,  1,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1]
+];
 
     var puzInit = {
 
@@ -85,14 +104,39 @@
       },
 
       buildTable: function() {
+
+        var isChecked;
         
-        for (var i=1; i <= rows; ++i) {
-          tbl.push("<tr>");
+        if (gotMatrix) {
+
+          console.log('gotMatrix');
+
+          for (var i=1; i <= rows; ++i) {
+            tbl.push("<tr>");
             for (var j=1; j <= cols; ++j) {
-              tbl.push('<td data-coords="' + i + ',' + j + '"><span></span><input class"character" maxlength="1" val="" type="text" onkeydown="return alphaOnly(event);" /></td>');
-            };
-          tbl.push("</tr>");
-        };
+              isChecked = matrix[i-1][j-1];
+              if ( isChecked == 0) {
+                tbl.push('<td data-coords="' + i + ',' + j + '"><span></span><input class="checked" maxlength="1" val="" type="text" onkeydown="return alphaOnly(event);" /></td>');
+              } else {
+                tbl.push('<td data-coords="' + i + ',' + j + '"><span></span><input maxlength="1" val="" type="text" onkeydown="return alphaOnly(event);" /></td>');
+              };
+            }
+            tbl.push("</tr>");
+          };
+
+        } else {
+
+          console.log('No Matrix');
+
+          for (var i=1; i <= rows; ++i) {
+            tbl.push("<tr>");
+            for (var j=1; j <= cols; ++j) {
+              tbl.push('<td data-coords="' + i + ',' + j + '"><span></span><input maxlength="1" val="" type="text" onkeydown="return alphaOnly(event);" /></td>');
+            }
+            tbl.push("</tr>");
+          };
+
+        }
 
         tbl.push("</table>");
         puzzEl.append(tbl.join(''));
