@@ -3,6 +3,8 @@ xwHelper
 
 Crossword Helper
 
+[Live Demo](http://codepen.io/fcedillo/full/pvyLqa/)
+
 Move through board using arrow keys (left, right, up and down).
 
 TIP: Use capital characters (caps lock)
